@@ -18,9 +18,10 @@ type Props = {
 }
 
 const LaunchPad = async ({ params, searchParams }: Props) => {
+  const { subaccountId } = await params
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
-      id: params.subaccountId,
+      id: subaccountId,
     },
   })
 

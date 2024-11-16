@@ -22,8 +22,10 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
   let potentialIncome = 0
   let closingRate = 0
 
+  const { subaccountId } = await params
+
   const subaccountDetails = await db.subAccount.findUnique({
-    where: { id: params.subaccountId }
+    where: { id: subaccountId }
   })
 
   const currentYear = new Date().getFullYear()
@@ -83,7 +85,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
 
   const funnels = await db.funnel.findMany({
     where: {
-      subAccountId: params.subaccountId,
+      subAccountId: subaccountId,
     },
     include: {
       FunnelPages: true,

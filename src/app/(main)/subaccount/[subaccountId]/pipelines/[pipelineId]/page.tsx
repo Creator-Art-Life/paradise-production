@@ -28,7 +28,7 @@ const PipelinePage = async ({ params }: Props) => {
 
   const lanes = (await getLanesWithTicketAndTags(
     params.pipelineId
-  )) as unknown as LaneDetail[]
+  )) as LaneDetail[]
 
   return (
     <Tabs

@@ -732,11 +732,21 @@ export const updateTicketsOrder = async (tickets: Ticket[]) => {
 }
 
 export const deletePipeline = async (pipelineId: string) => {
+  // Delete related Lane records
+  await db.lane.deleteMany({
+    where: { pipelineId },
+  });
+
+  // Now delete the Pipeline
   const response = await db.pipeline.delete({
     where: { id: pipelineId },
-  })
-  return response
+  });
+
+  return response;
 }
+
+
+
 
 export const deleteLane = async (laneId: string) => {
   const resposne = await db.lane.delete({ where: { id: laneId } })
@@ -883,3 +893,37 @@ export const getFunnels = async (subacountId: string) => {
 
   return funnels
 }
+
+export const upsertTicket = async (
+  ticket: Prisma.TicketUncheckedCreateInput,
+  tags: Tag[]
+) => {
+  let order: number
+  if (!ticket.order) {
+    const tickets = await db.ticket.findMany({
+      where: { laneId: ticket.laneId },
+    })
+    order = tickets.length
+  } else {
+    order = ticket.order
+  }
+
+  const response = await db.ticket.upsert({
+    where: {
+      id: ticket.id || v4(),
+    },
+    update: { ...ticket, Tags: { set: tags } },
+    create: { ...ticket, Tags: { connect: tags }, order },
+    include: {
+      Assigned: true,
+      Customer: true,
+      Tags: true,
+      Lane: true,
+    },
+  })
+
+  return response
+}
+
+
+
