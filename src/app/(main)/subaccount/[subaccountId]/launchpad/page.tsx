@@ -16,8 +16,8 @@ type Props = {
   }
   params: { subaccountId: string }
 }
-
-const LaunchPad = async ({ params, searchParams }: Props) => {
+//searchParams
+const LaunchPad = async ({ params, }: Props) => {
   const { subaccountId } = await params
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
@@ -44,8 +44,8 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
     `launchpad___${subaccountDetails.id}`
   )
 
-  let connectedStripeAccount = false
-
+  const connectedStripeAccount = false
+  // correct: let connectedStripeAccount = false
   // if (searchParams.code) {
   //   if (!subaccountDetails.connectAccountId) {
   //     try {

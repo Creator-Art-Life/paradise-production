@@ -4,12 +4,12 @@ import { useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
 type Props = {
-  prices: PricesList['data']
+  prices: any // PricesList['data']
   customerId: string
   planExists: boolean
 }
 
-const SubscriptionHelper = ({ customerId, planExists, prices }: Props) => {
+const SubscriptionHelper = ({ prices }: Props) => { //customerId, planExists, 
   const { setOpen } = useModal()
   const searchParams = useSearchParams()
   const plan = searchParams.get('plan')
@@ -21,10 +21,11 @@ const SubscriptionHelper = ({ customerId, planExists, prices }: Props) => {
           title="Upgrade Plan!"
           subheading="Get started today to get access to premium features"
         >
-          <SubscriptionFormWrapper
+          {/* <SubscriptionFormWrapper
             planExists={planExists}
             customerId={customerId}
-          />
+          /> */}
+          Sorry I haven't made this feature yet
         </CustomModal>,
         async () => ({
           plans: {

@@ -21,7 +21,8 @@ type Props = {
   searchParams: { code: string }
 }
 
-const LaunchPadPage = async ({ params, searchParams }: Props) => {
+//searchParams
+const LaunchPadPage = async ({ params, }: Props) => {
   const { agencyId } = await params
   const agencyDetails = await db.agency.findUnique({
     where: { id: agencyId },
@@ -46,7 +47,9 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
     `launchpad___${agencyDetails.id}`
   )
 
-  let connectedStripeAccount = false
+  const connectedStripeAccount = false
+
+  // correct: let connectedStripeAccount = false
 
   // if (searchParams.code) {
   //   if (!agencyDetails.connectAccountId) {
