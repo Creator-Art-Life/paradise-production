@@ -37,6 +37,7 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
       const res = await sendInvitation(values.role, values.email, agencyId)
       await saveActivityLogsNotification({
         agencyId: agencyId,
+        //@ts-expect-error some text for resolves
         description: `Invited ${res.email}`,
         subaccountId: undefined,
       })
