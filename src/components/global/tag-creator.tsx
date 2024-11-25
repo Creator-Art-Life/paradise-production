@@ -33,7 +33,7 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
-import { error } from 'console'
+
 
 type Props = {
   subAccountId: string
