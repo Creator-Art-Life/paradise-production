@@ -26,11 +26,12 @@ import React from 'react'
 import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
-type PageProps = {
-  params: { agencyId: string }
-}
+// type PageProps = {
+//   params: { agencyId: string }
+// }
 
-const AllSubaccountsPage = async ({ params }: any) => {// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AllSubaccountsPage = async ({ params }: any) => {
   const user = await getAuthUserDetails();
   if (!user) return;
 
