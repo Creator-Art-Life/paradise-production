@@ -61,11 +61,12 @@ const __getUsersWithAgencySubAccountPermissionsSidebarOptions = async (
 export type AuthUserWithAgencySigebarOptionsSubAccounts =
   Prisma.PromiseReturnType<typeof getAuthUserDetails>
 
-//@typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export type UsersWithAgencySubAccountPermissionsSidebarOptions =
   Prisma.PromiseReturnType<
     typeof __getUsersWithAgencySubAccountPermissionsSidebarOptions
   >
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 export type GetMediaFiles = Prisma.PromiseReturnType<typeof getMedia>
 

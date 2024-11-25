@@ -57,7 +57,10 @@ const customTooltip = ({
         </div>
       </div>
       {
-        categoryPayload.payload.FunnelPages?.map((page: any) => (
+        categoryPayload.payload.FunnelPages?.map((
+          //@typescript-eslint/no-explicit-any
+          page: any
+        ) => (
           //@typescript-eslint/ban-ts-comment
           <div
             key={page.id}

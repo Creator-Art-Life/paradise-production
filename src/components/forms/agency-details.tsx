@@ -42,7 +42,6 @@ import { Input } from '../ui/input'
 import { Switch } from '../ui/switch'
 import {
   deleteAgency,
-  initUser,
   saveActivityLogsNotification,
   updateAgencyDetails,
   upsertAgency,
@@ -178,6 +177,7 @@ const AgencyDetails = ({ data }: Props) => {
     setDeletingAgency(true)
     //WIP: discontinue the subscription
     try {
+      //@typescript-eslint/no-unused-vars
       const response = await deleteAgency(data.id)
       toast({
         title: 'Deleted Agency',

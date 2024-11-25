@@ -1,4 +1,6 @@
 'use client'
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
+
 import { PricesList, TicketDetails } from '@/lib/types'
 import { Agency, Contact, Plan, User } from '@prisma/client'
 import { createContext, useContext, useEffect, useState } from 'react'
