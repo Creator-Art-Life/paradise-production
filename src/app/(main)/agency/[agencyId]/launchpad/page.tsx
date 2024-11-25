@@ -15,14 +15,14 @@ import React from 'react'
 import { stripe } from '@/lib/stripe'
 
 type Props = {
-  params: {
-    agencyId: string
-  }
+  params: Promise<{ agencyId: string }>
   searchParams: { code: string }
 }
 
 //searchParams
 const LaunchPadPage = async ({ params, searchParams }: Props) => {
+  const resolvedParams = await params;
+
   const { agencyId } = await params
   const agencyDetails = await db.agency.findUnique({
     where: { id: agencyId },
@@ -58,7 +58,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
           code: searchParams.code,
         })
         await db.agency.update({
-          where: { id: params.agencyId },
+          where: { id: resolvedParams.agencyId },
           data: { connectAccountId: response.stripe_user_id },
         })
         connectedStripeAccount = true
@@ -139,7 +139,7 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
               ) : (
                 <Link
                   className="bg-primary py-2 px-4 rounded-md text-white"
-                  href={`/agency/${params.agencyId}/settings`}
+                  href={`/agency/${resolvedParams.agencyId}/settings`}
                 >
                   Start
                 </Link>
