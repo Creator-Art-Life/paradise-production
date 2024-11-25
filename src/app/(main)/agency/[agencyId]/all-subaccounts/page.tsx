@@ -22,20 +22,18 @@ import { getAuthUserDetails } from '@/lib/queries'
 import { SubAccount } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
-
 import React from 'react'
 import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
 type Props = {
-  params: Promise<{ agencyId: string }>
+  params: { agencyId: string }
 }
 
 const AllSubaccountsPage = async ({ params }: Props) => {
-
-  const { agencyId } = await params
-  const user = await getAuthUserDetails()
-  if (!user) return
+  const { agencyId } = params; // Распаковываем `params` без `await`
+  const user = await getAuthUserDetails();
+  if (!user) return;
 
   return (
     <AlertDialog>
