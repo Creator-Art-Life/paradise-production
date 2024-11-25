@@ -19,9 +19,11 @@ import {
   CreateFunnelFormSchema,
   // CreateFunnelFormSchema,
   CreateMediaType,
+  UpsertFunnelPage,
   // UpsertFunnelPage,
 } from './types'
 import { z } from 'zod'
+import { revalidatePath } from 'next/cache'
 
 export const getAuthUserDetails = async () => {
   const user = await currentUser()
@@ -206,17 +208,17 @@ export const updateAgencyDetails = async (
 }
 
 export const deleteAgency = async (agencyId: string) => {
-  // Удаляем все связанные записи AgencySidebarOption
-  await db.agencySidebarOption.deleteMany({
+  // Шаг 1: Обновить связанные записи в Notification
+  await db.notification.updateMany({
     where: { agencyId: agencyId },
-  });
-  // Удаляем саму запись Agency
-  const response = await db.agency.delete({
-    where: { id: agencyId },
+    data: { agencyId: '' }, // или используйте другое значение, если требуется
   });
 
+  // Шаг 2: Удалить агентство
+  const response = await db.agency.delete({ where: { id: agencyId } });
   return response;
-};
+}
+
 
 export const initUser = async (newUser: Partial<User>) => {
   const user = await currentUser()
@@ -270,7 +272,7 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
       create: {
         id: agency.id,
         // Only include required fields here
-        customerId: agency.customerId || undefined, // Or handle according to your schema
+        customerId: agency.customerId, // Or handle according to your schema
         address: agency.address,
         agencyLogo: agency.agencyLogo,
         city: agency.city,
@@ -375,7 +377,7 @@ export const upsertSubAccount = async (subAccount: SubAccount) => {
     create: {
       id: subAccount.id,
       // Fields required for creating a new subAccount
-      connectAccountId: subAccount.connectAccountId || undefined,
+      connectAccountId: subAccount.connectAccountId,
       name: subAccount.name,
       subAccountLogo: subAccount.subAccountLogo,
       companyEmail: subAccount.companyEmail,
@@ -506,13 +508,39 @@ export const getSubaccountDetails = async (subaccountId: string) => {
 }
 
 export const deleteSubAccount = async (subaccountId: string) => {
+  // Удаляем все связанные записи в Funnel
+  await db.funnel.deleteMany({
+    where: {
+      subAccountId: subaccountId,
+    },
+  });
+
+  // Удаляем все связанные записи в Permissions
+  await db.permissions.deleteMany({
+    where: {
+      subAccountId: subaccountId,
+    },
+  });
+
+  // Удаляем все связанные записи в Pipeline
+  await db.pipeline.deleteMany({
+    where: {
+      subAccountId: subaccountId,
+    },
+  });
+
+  // Теперь можно безопасно удалить SubAccount
   const response = await db.subAccount.delete({
     where: {
       id: subaccountId,
     },
-  })
-  return response
+  });
+
+  return response;
 }
+
+
+
 
 export const deleteUser = async (userId: string) => {
   const client = await clerkClient()
@@ -732,6 +760,11 @@ export const updateTicketsOrder = async (tickets: Ticket[]) => {
 }
 
 export const deletePipeline = async (pipelineId: string) => {
+  // Delete related Ticket records first
+  await db.ticket.deleteMany({
+    where: { Lane: { pipelineId } },  // Ensure you're targeting tickets related to the pipeline's lanes
+  });
+
   // Delete related Lane records
   await db.lane.deleteMany({
     where: { pipelineId },
@@ -743,15 +776,23 @@ export const deletePipeline = async (pipelineId: string) => {
   });
 
   return response;
-}
+};
 
 
 
 
 export const deleteLane = async (laneId: string) => {
-  const resposne = await db.lane.delete({ where: { id: laneId } })
-  return resposne
-}
+  // Сначала обновляем связанные записи Ticket, чтобы они больше не ссылались на Lane
+  await db.ticket.updateMany({
+    where: { laneId: laneId },
+    data: { laneId: "" }, // Используем пустую строку, чтобы удалить зависимость
+  });
+
+  // Теперь удаляем Lane
+  const response = await db.lane.delete({ where: { id: laneId } });
+  return response;
+};
+
 
 export const getTicketsWithTags = async (pipelineId: string) => {
   const response = await db.ticket.findMany({
@@ -760,8 +801,16 @@ export const getTicketsWithTags = async (pipelineId: string) => {
         pipelineId,
       },
     },
-    include: { Tags: true, Assigned: true, Customer: true },
-  })
+    include: {
+      Tags: {
+        include: {
+          Tag: true, // Подгружаем данные из модели `Tag`
+        },
+      },
+      Assigned: true,
+      Customer: true,
+    },
+  });
   return response
 }
 
@@ -854,9 +903,18 @@ export const upsertTag = async (
   tag: Prisma.TagUncheckedCreateInput
 ) => {
   const response = await db.tag.upsert({
-    where: { id: tag.id || v4(), subAccountId: subaccountId },
-    update: tag,
-    create: { ...tag, subAccountId: subaccountId },
+    where: {
+      id: tag.id || v4(),
+      subAccountId: subaccountId
+    },
+    update: {
+      color: tag.color,
+      createdAt: tag.createdAt,
+      name: tag.name,
+      updatedAt: tag.updatedAt,
+      ticketIds: tag.ticketIds,
+    },
+    create: { ...tag, subAccountId: subaccountId }
   })
 
   return response
@@ -885,6 +943,7 @@ export const upsertContact = async (
   })
   return response
 }
+
 export const getFunnels = async (subacountId: string) => {
   const funnels = await db.funnel.findMany({
     where: { subAccountId: subacountId },
@@ -892,6 +951,92 @@ export const getFunnels = async (subacountId: string) => {
   })
 
   return funnels
+}
+
+export const getFunnel = async (funnelId: string) => {
+  const funnel = await db.funnel.findUnique({
+    where: { id: funnelId },
+    include: {
+      FunnelPages: {
+        orderBy: {
+          order: 'asc',
+        },
+      },
+    },
+  })
+
+  return funnel
+}
+
+
+export const updateFunnelProducts = async (
+  funnelId: string,
+  products?: string,
+) => {
+  const data = await db.funnel.update({
+    where: { id: funnelId },
+    data: { liveProducts: products }
+  })
+  return data
+}
+
+export const upsertFunnelPage = async (
+  subaccountId: string,
+  funnelPage: UpsertFunnelPage,
+  funnelId: string
+) => {
+  if (!subaccountId || !funnelId) return
+
+  const { id, ...updateData } = funnelPage
+
+  const response = await db.funnelPage.upsert({
+    where: { id: funnelPage.id || '' },
+    update: { ...updateData },
+    create: {
+      ...funnelPage,
+      content: funnelPage.content
+        ? funnelPage.content
+        : JSON.stringify([
+          {
+            content: [],
+            id: '__body',
+            name: 'Body',
+            styles: { backgroundColor: 'white' },
+            type: '__body',
+          },
+        ]),
+      funnelId,
+    },
+  })
+
+  revalidatePath(`/subaccount/${subaccountId}/funnels/${funnelId}`, 'page')
+  return response
+}
+
+
+export const deleteFunnelePage = async (funnelPageId: string) => {
+  const response = await db.funnelPage.delete({ where: { id: funnelPageId } })
+  return response
+}
+
+export const getDomainContent = async (subDomainName: string) => {
+  const response = await db.funnel.findUnique({
+    where: {
+      subDomainName,
+    },
+    include: { FunnelPages: true },
+  })
+  return response
+}
+
+export const getFunnelPageDetails = async (funnelPageId: string) => {
+  const response = await db.funnelPage.findUnique({
+    where: {
+      id: funnelPageId,
+    },
+  })
+
+  return response
 }
 
 export const upsertTicket = async (
@@ -908,12 +1053,24 @@ export const upsertTicket = async (
     order = ticket.order
   }
 
+  // Подготовим теги для подключения через их уникальные идентификаторы
+  const tagConnect = tags.map(tag => ({ id: tag.id }));
+
   const response = await db.ticket.upsert({
     where: {
       id: ticket.id || v4(),
     },
-    update: { ...ticket, Tags: { set: tags } },
-    create: { ...ticket, Tags: { connect: tags }, order },
+    update: {
+      name: ticket.name,
+      description: ticket.description,
+      value: ticket.value,
+      Tags: { set: tagConnect }, // обновляем только идентификаторы тегов
+    },
+    create: {
+      ...ticket,
+      Tags: { connect: tagConnect }, // подключаем теги по их id
+      order,
+    },
     include: {
       Assigned: true,
       Customer: true,
@@ -925,5 +1082,20 @@ export const upsertTicket = async (
   return response
 }
 
-
-
+const fetchDetailedTags = async (tagIds: string[]) => {
+  const tags = await db.tag.findMany({
+    where: {
+      id: { in: tagIds },
+    },
+    select: {
+      id: true,
+      name: true,
+      color: true,
+      createdAt: true,
+      updatedAt: true,
+      subAccountId: true,
+      ticketIds: true, // предполагается, что в модели есть поле ticketIds
+    },
+  });
+  return tags;
+};

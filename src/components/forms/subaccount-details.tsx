@@ -97,7 +97,7 @@ const SubAccountDetails: React.FC<SubAccountDetailsProps> = ({
         updatedAt: new Date(),
         companyEmail: values.companyEmail,
         agencyId: agencyDetails.id,
-        connectAccountId: '',
+        connectAccountId: "",
         goal: 5000,
       })
       if (!response) throw new Error('No response from server')

@@ -31,14 +31,14 @@ const Sidebar = async ({ id, type }: Props) => {
     }
   }
 
-  console.log("user.Agency:", user.Agency);
-  console.log("user.Agency.SidebarOption:", user.Agency.SidebarOption);
+  // console.log("user.Agency:", user.Agency);
+  // console.log("user.Agency.SidebarOption:", user.Agency.SidebarOption);
   if (type === 'subaccount') {
     const subAccount = user.Agency.SubAccount.find(
       (subaccount) => subaccount.id === id
     );
-    console.log("SubAccount:", subAccount);
-    console.log("SubAccount.SidebarOption:", subAccount?.SidebarOption);
+    // console.log("SubAccount:", subAccount);
+    // console.log("SubAccount.SidebarOption:", subAccount?.SidebarOption);
   }
 
 
@@ -55,7 +55,6 @@ const Sidebar = async ({ id, type }: Props) => {
     )
   )
 
-  console.log(`sideBarLogo: ${sideBarLogo}, subaccounts: ${subaccounts}`)
 
   return (
     <>

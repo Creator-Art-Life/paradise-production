@@ -12,7 +12,8 @@ import { CheckCircleIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-// import { stripe } from '@/lib/stripe'
+import { stripe } from '@/lib/stripe'
+import { v4 } from 'uuid'
 
 type Props = {
   params: {
@@ -22,7 +23,7 @@ type Props = {
 }
 
 //searchParams
-const LaunchPadPage = async ({ params, }: Props) => {
+const LaunchPadPage = async ({ params, searchParams }: Props) => {
   const { agencyId } = await params
   const agencyDetails = await db.agency.findUnique({
     where: { id: agencyId },
@@ -47,27 +48,26 @@ const LaunchPadPage = async ({ params, }: Props) => {
     `launchpad___${agencyDetails.id}`
   )
 
-  const connectedStripeAccount = false
 
-  // correct: let connectedStripeAccount = false
+  let connectedStripeAccount = false
 
-  // if (searchParams.code) {
-  //   if (!agencyDetails.connectAccountId) {
-  //     try {
-  //       const response = await stripe.oauth.token({
-  //         grant_type: 'authorization_code',
-  //         code: searchParams.code,
-  //       })
-  //       await db.agency.update({
-  //         where: { id: params.agencyId },
-  //         data: { connectAccountId: response.stripe_user_id },
-  //       })
-  //       connectedStripeAccount = true
-  //     } catch (error) {
-  //       console.log('🔴 Could not connect stripe account')
-  //     }
-  //   }
-  // }
+  if (searchParams.code) {
+    if (!agencyDetails.connectAccountId) {
+      try {
+        const response = await stripe.oauth.token({
+          grant_type: 'authorization_code',
+          code: searchParams.code,
+        })
+        await db.agency.update({
+          where: { id: params.agencyId },
+          data: { connectAccountId: response.stripe_user_id },
+        })
+        connectedStripeAccount = true
+      } catch (error) {
+        console.log('🔴 Could not connect stripe account')
+      }
+    }
+  }
 
   return (
     <div className="flex flex-col justify-center items-center">

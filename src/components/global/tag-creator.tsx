@@ -90,6 +90,7 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
       name: value,
       subAccountId,
       updatedAt: new Date(),
+      ticketIds: []
     }
 
     setTags([...tags, tagData])

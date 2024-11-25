@@ -51,7 +51,7 @@ type Props = {
   index: number
 }
 
-const PipelineTicket = ({
+const PipelineTicket = async ({
   allTickets,
   index,
   setAllTickets,
@@ -60,6 +60,7 @@ const PipelineTicket = ({
 }: Props) => {
   const router = useRouter()
   const { setOpen, data } = useModal()
+
 
   const editNewTicket = (ticket: TicketWithTags[0]) => {
     setAllTickets((tickets) =>
@@ -115,6 +116,7 @@ const PipelineTicket = ({
       console.log(error)
     }
   }
+
   return (
     <Draggable
       draggableId={ticket.id.toString()}
@@ -154,11 +156,12 @@ const PipelineTicket = ({
                       {new Date().toLocaleDateString()}
                     </span>
                     <div className="flex items-center flex-wrap gap-2">
-                      {ticket.Tags.map((tag) => (
+                      {ticket.Tags.map(tag => (
+                        console.log("TICKET:", ticket),
                         <TagComponent
-                          key={tag.id}
-                          title={tag.name}
-                          colorName={tag.color}
+                          key={tag.tagId}
+                          title={tag.Tag.name}
+                          colorName={tag.Tag.color}
                         />
                       ))}
                     </div>

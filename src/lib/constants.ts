@@ -27,6 +27,7 @@ import Tune from '@/components/icons/tune'
 import Video from '@/components/icons/video_recorder'
 import Wallet from '@/components/icons/wallet'
 import Warning from '@/components/icons/warning'
+import Stripe from 'stripe'
 export const pricingCards = [
   {
     title: 'Starter',
@@ -40,25 +41,25 @@ export const pricingCards = [
   {
     title: 'Unlimited Saas',
     description: 'The ultimate agency kit',
-    price: '$199',
+    price: '$49',
     duration: 'month',
     highlight: 'Key features',
     features: ['Rebilling', '24/7 Support team'],
-    priceId: 'price_1OYxkqFj9oKEERu1KfJGWxgN',
+    priceId: 'price_1QNCpjDzaQgFnciuFoXRsU4L',
   },
   {
     title: 'Basic',
     description: 'For serious agency owners',
-    price: '$49',
+    price: '$19',
     duration: 'month',
     highlight: 'Everything in Starter, plus',
     features: ['Unlimited Sub accounts', 'Unlimited Team members'],
-    priceId: 'price_1OYxkqFj9oKEERu1NbKUxXxN',
+    priceId: 'price_1QNCpjDzaQgFnciuAGEkED6i',
   },
 ]
 
 export const addOnProducts = [
-  { title: 'Priority Support', id: 'prod_PNjJAE2EpP16pn' },
+  { title: 'Priority Support', id: 'prod_RFj6km2l6UbStN' },
 ]
 
 export const icons = [
@@ -230,3 +231,112 @@ export const defaultStyles: React.CSSProperties = {
   textAlign: 'left',
   opacity: '100%',
 }
+
+export const fake_products: Stripe.Product[] = [
+  {
+    id: 'prod_1',
+    object: 'product',
+    active: true,
+    created: 1635724800, // Примерная дата создания
+    description: 'This is a sample product description.',
+    images: ['/assets/products_example/gojo-cat.jpg'],
+    livemode: true,
+    marketing_features: [{ name: 'Feature 1' }],
+    metadata: {},
+    name: 'Product 1',
+    package_dimensions: {
+      height: 10,
+      length: 20,
+      weight: 8,
+      width: 5,
+    },
+    shippable: true,
+    statement_descriptor: 'Sample Product 1',
+    tax_code: 'tax_code_123',
+    type: 'good',
+    unit_label: 'unit',
+    updated: 1635811200, // Примерная дата обновления
+    url: 'https://example.com/product1',
+    default_price: {
+      id: 'price_1',
+      object: 'price',
+      active: true,
+      billing_scheme: 'per_unit',
+      created: 1635724800,
+      currency: 'usd',
+      currency_options: {},
+      custom_unit_amount: null,
+      livemode: true,
+      lookup_key: null,
+      metadata: {},
+      nickname: null,
+      product: 'prod_1',
+      recurring: null,
+      // recurring: {
+      //   aggregate_usage: 'sum',
+      //   interval: 'month',
+      //   interval_count: 1,
+      //   meter: null,
+      //   trial_period_days: 14,
+      //   usage_type: 'licensed',
+      // },
+      tax_behavior: 'exclusive',
+      tiers: [],
+      tiers_mode: null,
+      transform_quantity: null,
+      type: 'one_time',
+      unit_amount: 1000, // Цена в центах
+      unit_amount_decimal: '1000.00',
+    },
+  },
+  {
+    id: 'prod_2',
+    object: 'product',
+    active: false,
+    created: 1635724801,
+    description: 'This is another sample product description.',
+    images: ['/assets/products_example/peace.jpg'],
+    livemode: false,
+    marketing_features: [{ name: 'Feature 2' }],
+    metadata: {},
+    name: 'Product 2',
+    package_dimensions: null,
+    shippable: false,
+    statement_descriptor: 'Sample Product 2',
+    tax_code: 'tax_code_456',
+    type: 'service',
+    unit_label: null,
+    updated: 1635811201,
+    url: 'https://example.com/product2',
+    default_price: {
+      id: 'price_2',
+      object: 'price',
+      active: true,
+      billing_scheme: 'per_unit',
+      created: 1635724801,
+      currency: 'eur',
+      currency_options: {},
+      custom_unit_amount: null,
+      livemode: false,
+      lookup_key: null,
+      metadata: {},
+      nickname: null,
+      product: 'prod_2',
+      recurring: {
+        aggregate_usage: 'last_during_period',
+        interval: 'year',
+        interval_count: 1,
+        meter: 'meter_123',
+        trial_period_days: null,
+        usage_type: 'metered',
+      },
+      tax_behavior: 'exclusive',
+      tiers: [],
+      tiers_mode: null,
+      transform_quantity: null,
+      type: 'recurring',
+      unit_amount: 2000, // Цена в центах
+      unit_amount_decimal: '2000.00',
+    },
+  },
+];

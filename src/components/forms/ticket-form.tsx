@@ -79,6 +79,8 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
   })
   const isLoading = form.formState.isLoading
 
+
+
   useEffect(() => {
     if (subaccountId) {
       const fetchData = async () => {
@@ -119,6 +121,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
           laneId,
           id: defaultData.ticket?.id,
           assignedUserId: assignedTo,
+          value: Number(values.value),
           ...(contact ? { customerId: contact } : {}),
         },
         tags
@@ -212,7 +215,17 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
             <TagCreator
               subAccountId={subaccountId}
               getSelectedTags={setTags}
-              defaultTags={defaultData.ticket?.Tags || []}
+              defaultTags={
+                defaultData.ticket?.Tags?.map(tag => ({
+                  subAccountId: subaccountId,
+                  name: tag.tagId,
+                  id: tag.id,
+                  color: '#fff',
+                  createdAt: new Date(),
+                  updatedAt: new Date(),
+                  ticketIds: [tag.ticketId],
+                })) || []
+              }
             />
             <FormLabel>Assigned To Team Member</FormLabel>
             <Select
@@ -340,3 +353,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
 }
 
 export default TicketForm
+
+function fetchDetailedTags(tagIds: string[]) {
+  throw new Error('Function not implemented.')
+}

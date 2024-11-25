@@ -1,13 +1,20 @@
 import BlurPage from '@/components/global/blur-page'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { db } from '@/lib/db'
-import React from 'react'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { CheckCircleIcon } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { db } from '@/lib/db'
+import { stripe } from '@/lib/stripe'
 import { getStripeOAuthLink } from '@/lib/utils'
-
+import { CheckCircleIcon } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { v4 } from 'uuid'
 
 type Props = {
   searchParams: {
@@ -16,12 +23,11 @@ type Props = {
   }
   params: { subaccountId: string }
 }
-//searchParams
-const LaunchPad = async ({ params, }: Props) => {
-  const { subaccountId } = await params
+
+const LaunchPad = async ({ params, searchParams }: Props) => {
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
-      id: subaccountId,
+      id: params.subaccountId,
     },
   })
 
@@ -44,25 +50,25 @@ const LaunchPad = async ({ params, }: Props) => {
     `launchpad___${subaccountDetails.id}`
   )
 
-  const connectedStripeAccount = false
-  // correct: let connectedStripeAccount = false
-  // if (searchParams.code) {
-  //   if (!subaccountDetails.connectAccountId) {
-  //     try {
-  //       const response = await stripe.oauth.token({
-  //         grant_type: 'authorization_code',
-  //         code: searchParams.code,
-  //       })
-  //       await db.subAccount.update({
-  //         where: { id: params.subaccountId },
-  //         data: { connectAccountId: response.stripe_user_id },
-  //       })
-  //       connectedStripeAccount = true
-  //     } catch (error) {
-  //       console.log('🔴 Could not connect stripe account', error)
-  //     }
-  //   }
-  // }
+  let connectedStripeAccount = false
+
+  if (searchParams.code) {
+    if (!subaccountDetails.connectAccountId) {
+      try {
+        const response = await stripe.oauth.token({
+          grant_type: 'authorization_code',
+          code: searchParams.code,
+        })
+        await db.subAccount.update({
+          where: { id: params.subaccountId },
+          data: { connectAccountId: response.stripe_user_id },
+        })
+        connectedStripeAccount = true
+      } catch (error) {
+        console.log('🔴 Could not connect stripe account', error)
+      }
+    }
+  }
 
   return (
     <BlurPage>
