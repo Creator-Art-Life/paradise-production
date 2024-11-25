@@ -7,42 +7,43 @@ import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
 import FunnelEditor from './_components/funnel-editor'
 
 type Props = {
-  params: {
+  params: Promise<{
     subaccountId: string
     funnelId: string
     funnelPageId: string
-  }
+  }>
 }
 
 const Page = async ({ params }: Props) => {
+  const resolvedParams = await params
   const funnelPageDetails = await db.funnelPage.findFirst({
     where: {
-      id: params.funnelPageId,
+      id: resolvedParams.funnelPageId,
     },
   })
   if (!funnelPageDetails) {
     return redirect(
-      `/subaccount/${params.subaccountId}/funnels/${params.funnelId}`
+      `/subaccount/${resolvedParams.subaccountId}/funnels/${resolvedParams.funnelId}`
     )
   }
 
   return (
     <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
       <EditorProvider
-        subaccountId={params.subaccountId}
-        funnelId={params.funnelId}
+        subaccountId={resolvedParams.subaccountId}
+        funnelId={resolvedParams.funnelId}
         pageDetails={funnelPageDetails}
       >
         <FunnelEditorNavigation
-          funnelId={params.funnelId}
+          funnelId={resolvedParams.funnelId}
           funnelPageDetails={funnelPageDetails}
-          subaccountId={params.subaccountId}
+          subaccountId={resolvedParams.subaccountId}
         />
         <div className="h-full flex justify-center">
-          <FunnelEditor funnelPageId={params.funnelPageId} />
+          <FunnelEditor funnelPageId={resolvedParams.funnelPageId} />
         </div>
 
-        <FunnelEditorSidebar subaccountId={params.subaccountId} />
+        <FunnelEditorSidebar subaccountId={resolvedParams.subaccountId} />
       </EditorProvider>
     </div>
   )
