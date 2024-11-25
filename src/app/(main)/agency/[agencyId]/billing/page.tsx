@@ -6,10 +6,11 @@ import { Separator } from '@/components/ui/separator'
 import PricingCard from './_components/pricing-card'
 
 type Props = {
-  params: { agencyId: string }
+  params: Promise<{ agencyId: string }>
 }
 
 const page = async ({ params }: Props) => {
+  const resolvedParams = await params;
   // const addOns = await stripe.products.list({
   //   ids: addOnProducts.map((product) => product.id),
   //   expand: ['data.default_price'],
@@ -17,7 +18,7 @@ const page = async ({ params }: Props) => {
 
   const agencySubscription = await db.agency.findUnique({
     where: {
-      id: params.agencyId
+      id: resolvedParams.agencyId
     },
     select: {
       customerId: true,
