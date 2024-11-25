@@ -26,10 +26,12 @@ import React from 'react'
 import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
-//@typescript-eslint/no-explicit-any
-const AllSubaccountsPage = async ({ params }: any) => {
-  const user = await getAuthUserDetails();
-  if (!user) return;
+type Props = {
+  params: { agencyId: string }
+}
+const AllSubaccountsPage = async ({ params }: Props) => {
+  const user = await getAuthUserDetails()
+  if (!user) return
 
   return (
     <AlertDialog>
