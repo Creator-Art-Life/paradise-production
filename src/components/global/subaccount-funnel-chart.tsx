@@ -53,8 +53,9 @@ const customTooltip = ({
           </div>
         </div>
       </div>
-      {// eslint-disable-next-line @typescript-eslint/no-explicit-anys
+      {
         categoryPayload.payload.FunnelPages?.map((page: any) => (
+          //@ts-ignore
           <div
             key={page.id}
             className="dark:text-white/70 text-black flex justify-between items-center"

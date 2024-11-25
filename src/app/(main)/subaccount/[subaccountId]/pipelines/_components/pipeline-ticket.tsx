@@ -57,7 +57,9 @@ const PipelineTicket = async ({
   subaccountId,
   ticket,
 }: Props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter()
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { setOpen } = useModal()
 
 

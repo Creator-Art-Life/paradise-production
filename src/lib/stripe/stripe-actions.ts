@@ -19,17 +19,17 @@ export const subscriptionCreated = async (
       throw new Error('Could not find and agency to upsert the subscription')
     }
 
-    const data = {
-      active: subscription.status === 'active',
-      agencyId: agency.id,
-      customerId,
-      currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
-      //@ts-expect-error some text for resolve problem
-      priceId: subscription.plan.id,
-      subscritiptionId: subscription.id,
-      //@ts-expect-error some text for resolve problem
-      plan: subscription.plan.id,
-    }
+    // const data = {
+    //   active: subscription.status === 'active',
+    //   agencyId: agency.id,
+    //   customerId,
+    //   currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
+    //   //@ts-expect-error some text for resolve problem
+    //   priceId: subscription.plan.id,
+    //   subscritiptionId: subscription.id,
+    //   //@ts-expect-error some text for resolve problem
+    //   plan: subscription.plan.id,
+    // }
 
     // const res = await db.subscription.upsert({
     //   where: {

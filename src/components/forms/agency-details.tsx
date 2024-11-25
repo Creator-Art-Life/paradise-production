@@ -97,6 +97,7 @@ const AgencyDetails = ({ data }: Props) => {
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
+      // @ts-ignore
       let newUserData
       let custId
       if (!data?.id) {

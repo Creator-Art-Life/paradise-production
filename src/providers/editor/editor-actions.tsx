@@ -1,4 +1,4 @@
-// @ts-ignore
+
 import { DeviceTypes, EditorElement } from './editor-provider'
 
 export type EditorAction =
@@ -30,6 +30,7 @@ export type EditorAction =
         id: ''
         content: []
         name: ''
+        // @typescript-eslint/ban-ts-comment
         styles: {}
         type: null
       }

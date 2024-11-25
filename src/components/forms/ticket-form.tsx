@@ -18,7 +18,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,9 +28,7 @@ import { Textarea } from '../ui/textarea'
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
@@ -102,7 +99,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
 
       const fetchData = async () => {
         const response = await searchContacts(
-          //@ts-ignore
+          //@ts-expect-error some text pupupup
           defaultData.ticket?.Customer?.name
         )
         setContactList(response)

@@ -1,7 +1,7 @@
 import { ModeToggle } from '@/components/global/mode-toggle'
-import { getAuthUserDetails } from '@/lib/queries'
+// import { getAuthUserDetails } from '@/lib/queries'
 import { UserButton } from '@clerk/nextjs'
-import { currentUser, User } from '@clerk/nextjs/server'
+// import { currentUser, User } from '@clerk/nextjs/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -9,8 +9,8 @@ import React from 'react'
 
 
 const Navigation = async () => {
-  const authUser = await currentUser()
-  const ownerAgency = await getAuthUserDetails()
+  // const authUser = await currentUser()
+  // const ownerAgency = await getAuthUserDetails()
 
   // const linkText = authUser
   //   ? "Create Agency"
