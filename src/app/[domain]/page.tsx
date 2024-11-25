@@ -5,8 +5,10 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor'
 
-const Page = async ({ params }: { params: { domain: string } }) => {
-  const domainData = await getDomainContent(params.domain.slice(0, -1))
+const Page = async ({ params }: { params: Promise<{ domain: string }> }) => {
+  const resolvedParams = await params
+
+  const domainData = await getDomainContent(resolvedParams.domain.slice(0, -1))
   if (!domainData) return notFound()
 
   const pageData = domainData.FunnelPages.find((page) => !page.pathName)
