@@ -7,16 +7,16 @@ import { columns } from './columns'
 import SendInvitation from '@/components/forms/send-invitation'
 
 type Props = {
-  params: { agencyId: string }
+  params: Promise<{ agencyId: string }>
 }
 
 const TeamPage = async ({ params }: Props) => {
-  const { agencyId } = await params
+  const resolvedParams = await params;
   const authUser = await currentUser()
   const teamMembers = await db.user.findMany({
     where: {
       Agency: {
-        id: agencyId,
+        id: resolvedParams.agencyId,
       },
     },
     include: {
@@ -28,7 +28,7 @@ const TeamPage = async ({ params }: Props) => {
   if (!authUser) return null
   const agencyDetails = await db.agency.findUnique({
     where: {
-      id: agencyId,
+      id: resolvedParams.agencyId,
     },
     include: {
       SubAccount: true,

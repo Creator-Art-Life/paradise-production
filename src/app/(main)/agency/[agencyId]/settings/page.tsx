@@ -5,14 +5,13 @@ import { currentUser } from '@clerk/nextjs/server'
 import React from 'react'
 
 type Props = {
-  params: { agencyId: string }
+  params: Promise<{ agencyId: string }>
 }
 
 const SettingsPage = async ({ params }: Props) => {
+  const resolvedParams = await params;
   const authUser = await currentUser();
   if (!authUser) return null
-
-  const { agencyId } = await params;
 
   const userDetails = await db.user.findUnique({
     where: {
@@ -23,7 +22,7 @@ const SettingsPage = async ({ params }: Props) => {
   if (!userDetails) return null
   const agencyDetails = await db.agency.findUnique({
     where: {
-      id: agencyId,
+      id: resolvedParams.agencyId,
     },
     include: {
       SubAccount: true,
@@ -39,7 +38,7 @@ const SettingsPage = async ({ params }: Props) => {
       <AgencyDetails data={agencyDetails} />
       <UserDetails
         type="agency"
-        id={agencyId}
+        id={resolvedParams.agencyId}
         subAccounts={subAccounts}
         userData={userDetails}
       />

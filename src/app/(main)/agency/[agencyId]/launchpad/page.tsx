@@ -16,16 +16,16 @@ import { stripe } from '@/lib/stripe'
 
 type Props = {
   params: Promise<{ agencyId: string }>
-  searchParams: { code: string }
+  searchParams: Promise<{ code: string }>
 }
 
 //searchParams
 const LaunchPadPage = async ({ params, searchParams }: Props) => {
+  const resolvedSearchParams = await searchParams;
   const resolvedParams = await params;
 
-  const { agencyId } = await params
   const agencyDetails = await db.agency.findUnique({
-    where: { id: agencyId },
+    where: { id: resolvedParams.agencyId },
   })
 
   if (!agencyDetails) return
@@ -50,12 +50,12 @@ const LaunchPadPage = async ({ params, searchParams }: Props) => {
 
   let connectedStripeAccount = false
 
-  if (searchParams.code) {
+  if (resolvedSearchParams.code) {
     if (!agencyDetails.connectAccountId) {
       try {
         const response = await stripe.oauth.token({
           grant_type: 'authorization_code',
-          code: searchParams.code,
+          code: resolvedSearchParams.code,
         })
         await db.agency.update({
           where: { id: resolvedParams.agencyId },
