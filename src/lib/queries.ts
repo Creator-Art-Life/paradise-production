@@ -246,7 +246,7 @@ export const initUser = async (newUser: Partial<User>) => {
 
   return userData
 }
-
+//@typescript-eslint/no-unused-vars
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
   if (!agency.companyEmail) return null
   try {
@@ -597,8 +597,8 @@ export const sendInvitation = async (
       },
     })
     return invitation
-  } catch (error: any) {
-    console.log("Error creating invitation:", error.errors || error)
+  } catch (error) {
+    console.log("Error creating invitation:", error)
     throw error
   }
 
@@ -1082,20 +1082,20 @@ export const upsertTicket = async (
   return response
 }
 
-const fetchDetailedTags = async (tagIds: string[]) => {
-  const tags = await db.tag.findMany({
-    where: {
-      id: { in: tagIds },
-    },
-    select: {
-      id: true,
-      name: true,
-      color: true,
-      createdAt: true,
-      updatedAt: true,
-      subAccountId: true,
-      ticketIds: true, // предполагается, что в модели есть поле ticketIds
-    },
-  });
-  return tags;
-};
+// const fetchDetailedTags = async (tagIds: string[]) => {
+//   const tags = await db.tag.findMany({
+//     where: {
+//       id: { in: tagIds },
+//     },
+//     select: {
+//       id: true,
+//       name: true,
+//       color: true,
+//       createdAt: true,
+//       updatedAt: true,
+//       subAccountId: true,
+//       ticketIds: true, // предполагается, что в модели есть поле ticketIds
+//     },
+//   });
+//   return tags;
+// };

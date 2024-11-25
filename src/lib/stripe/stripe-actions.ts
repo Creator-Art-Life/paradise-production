@@ -24,20 +24,20 @@ export const subscriptionCreated = async (
       agencyId: agency.id,
       customerId,
       currentPeriodEndDate: new Date(subscription.current_period_end * 1000),
-      //@ts-ignore
+      //@ts-expect-error some text for resolve problem
       priceId: subscription.plan.id,
       subscritiptionId: subscription.id,
-      //@ts-ignore
+      //@ts-expect-error some text for resolve problem
       plan: subscription.plan.id,
     }
 
-    const res = await db.subscription.upsert({
-      where: {
-        agencyId: agency.id,
-      },
-      create: data,
-      update: data,
-    })
+    // const res = await db.subscription.upsert({
+    //   where: {
+    //     agencyId: agency.id,
+    //   },
+    //   create: data,
+    //   update: data,
+    // })
     console.log(`🟢 Created Subscription for ${subscription.id}`)
   } catch (error) {
     console.log('🔴 Error from Create action', error)

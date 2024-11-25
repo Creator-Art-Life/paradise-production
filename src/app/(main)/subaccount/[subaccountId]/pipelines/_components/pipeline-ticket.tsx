@@ -52,7 +52,6 @@ type Props = {
 }
 
 const PipelineTicket = async ({
-  allTickets,
   index,
   setAllTickets,
   subaccountId,
@@ -125,11 +124,11 @@ const PipelineTicket = async ({
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
           const offset = { x: 300, y: 20 }
-          //@ts-expect-error
+          //@ts-expect-error Cannot access left property due to potential undefined style
           const x = provided.draggableProps.style?.left - offset.x
-          //@ts-expect-error
+          //@ts-expect-error Cannot access top property due to potential undefined style
           const y = provided.draggableProps.style?.top - offset.y
-          //@ts-expect-error
+          //@ts-expect-error Overriding draggableProps.style with new values
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             top: y,

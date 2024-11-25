@@ -3,54 +3,47 @@
 import React, { useState } from 'react'
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
-import { Separator } from '@/components/ui/separator'
 import {
   ClipboardIcon,
-  Contact2,
-  DollarSign,
-  Goal,
-  ShoppingCart,
 } from 'lucide-react'
-import { AreaChart } from '@tremor/react'
-import CircleProgress from '../global/circle-progress'
-import StripeAgencyStatics from '../forms/stripe-agency-statics'
-import { Button } from '../ui/button'
 import Link from 'next/link'
 
 type Props = {
   currency?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sessions?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   totalClosedSessions?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   totalPendingSessions?: any;
   net?: number;
   potentialIncome?: number;
   closingRate?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subaccounts: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   agencyDetails: any
   example?: boolean
 }
 
 const DashboardUse = ({
-  currency = 'USD',
-  sessions = 0,
-  totalClosedSessions = 0,
-  totalPendingSessions = 0,
-  net = 0,
-  potentialIncome = 0,
-  closingRate = 0,
+  // currency = 'USD',
+  // sessions = 0,
+  // totalClosedSessions = 0,
+  // totalPendingSessions = 0,
+  // net = 0,
+  // potentialIncome = 0,
+  // closingRate = 0,
   subaccounts,
   agencyDetails,
-  example
+  // example
 }: Props) => {
-  const currentYear = new Date().getFullYear()
-  const [showCode, setShowCode] = useState(false);
+  // const currentYear = new Date().getFullYear()
+  // const [showCode, setShowCode] = useState(false);
 
   return (
     <div className="relative h-full">

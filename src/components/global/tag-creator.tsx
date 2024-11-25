@@ -33,6 +33,7 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
+import { error } from 'console'
 
 type Props = {
   subAccountId: string
@@ -77,6 +78,7 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
       return
     }
     if (!selectedColor) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Please Select a color',
@@ -108,6 +110,7 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
         subaccountId: subAccountId,
       })
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Could not create tag',

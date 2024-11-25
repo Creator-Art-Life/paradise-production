@@ -53,8 +53,8 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
       //@ts-expect-error Product ID may be undefined, but we are sure it's correct here
       (prod) => prod.productId === product.default_price.id
     )
-    productIdExists
-      ? setLiveProducts(
+    if (productIdExists) {
+      setLiveProducts(
         liveProducts.filter(
           (prod) =>
             prod.productId !==
@@ -62,7 +62,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
             product.default_price?.id
         )
       )
-      :
+    } else {
       setLiveProducts([
         ...liveProducts,
         {
@@ -72,6 +72,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
           recurring: !!product.default_price.recurring,
         },
       ])
+    }
   }
 
 

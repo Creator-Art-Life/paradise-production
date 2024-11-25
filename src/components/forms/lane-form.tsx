@@ -14,11 +14,10 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
 } from '@/components/ui/card'
 import { useForm } from 'react-hook-form'
-import { Funnel, Lane, Pipeline } from '@prisma/client'
+import { Lane, } from '@prisma/client'
 import { Input } from '../ui/input'
 
 import { Button } from '../ui/button'
@@ -27,11 +26,8 @@ import { LaneFormSchema } from '@/lib/types'
 import {
   getPipelineDetails,
   saveActivityLogsNotification,
-  upsertFunnel,
   upsertLane,
-  upsertPipeline,
 } from '@/lib/queries'
-import { v4 } from 'uuid'
 import { toast } from '../ui/use-toast'
 import { useModal } from '@/providers/modal-provider'
 import { useRouter } from 'next/navigation'
@@ -92,6 +88,7 @@ const LaneForm: React.FC<CreateLaneFormProps> = ({
 
       router.refresh()
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Oppse!',

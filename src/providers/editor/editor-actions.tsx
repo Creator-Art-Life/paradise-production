@@ -1,3 +1,4 @@
+// @ts-ignore
 import { DeviceTypes, EditorElement } from './editor-provider'
 
 export type EditorAction =

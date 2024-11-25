@@ -8,7 +8,7 @@ export default clerkMiddleware((auth, req) => {
   const url = req.nextUrl;
   const searchParams = url.searchParams.toString();
   const hostname = req.headers.get('host') || '';
-  const referrer = req.headers.get('referer') || '';
+  // const referrer = req.headers.get('referer') || '';
 
   const pathWithSearchParams = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ''}`;
 

@@ -4,7 +4,6 @@ import { z } from 'zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,11 +13,10 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
 } from '@/components/ui/card'
 import { useForm } from 'react-hook-form'
-import { Funnel, Pipeline } from '@prisma/client'
+import { Pipeline } from '@prisma/client'
 import { Input } from '../ui/input'
 
 import { Button } from '../ui/button'
@@ -26,10 +24,8 @@ import Loading from '../global/loading'
 import { CreatePipelineFormSchema } from '@/lib/types'
 import {
   saveActivityLogsNotification,
-  upsertFunnel,
   upsertPipeline,
 } from '@/lib/queries'
-import { v4 } from 'uuid'
 import { toast } from '../ui/use-toast'
 import { useModal } from '@/providers/modal-provider'
 import { useRouter } from 'next/navigation'
@@ -44,7 +40,7 @@ const CreatePipelineForm: React.FC<CreatePipelineFormProps> = ({
   defaultData,
   subAccountId,
 }) => {
-  const { data, isOpen, setOpen, setClose } = useModal()
+  const { setClose } = useModal()
   const router = useRouter()
   const form = useForm<z.infer<typeof CreatePipelineFormSchema>>({
     mode: 'onChange',
@@ -85,6 +81,7 @@ const CreatePipelineForm: React.FC<CreatePipelineFormProps> = ({
       })
       router.refresh()
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Oppse!',

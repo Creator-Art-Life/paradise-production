@@ -10,7 +10,6 @@ import {
 import { Progress } from '@/components/ui/progress'
 import { Separator } from '@/components/ui/separator'
 import {
-  ClipboardIcon,
   Contact2,
   DollarSign,
   Goal,
@@ -21,13 +20,19 @@ import CircleProgress from '../global/circle-progress'
 
 type Props = {
   currency?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sessions?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   totalClosedSessions?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   totalPendingSessions?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   net?: number;
   potentialIncome?: number;
   closingRate?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   subaccounts: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   agencyDetails: any
 }
 
@@ -43,8 +48,8 @@ const StripeAgencyStatics = ({
   agencyDetails
 }: Props) => {
   const currentYear = new Date().getFullYear()
-  const startDate = new Date(`${currentYear}-01-01T00:00:00Z`).getTime() / 1000
-  const endDate = new Date(`${currentYear}-12-31T23:59:59Z`).getTime() / 1000
+  // const startDate = new Date(`${currentYear}-01-01T00:00:00Z`).getTime() / 1000
+  // const endDate = new Date(`${currentYear}-12-31T23:59:59Z`).getTime() / 1000
 
   return (
     <>

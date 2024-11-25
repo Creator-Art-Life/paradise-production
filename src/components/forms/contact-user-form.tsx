@@ -6,7 +6,6 @@ import { z } from 'zod'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -73,6 +72,7 @@ const ContactUserForm: React.FC<ContactUserFormProps> = ({ subaccountId }) => {
       setClose()
       router.refresh()
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Oppse!',

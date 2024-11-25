@@ -86,6 +86,8 @@ const CommandEmpty = React.forwardRef<
   />
 ))
 
+CommandEmpty.displayName = "CommandEmpty"
+
 CustomCommandEmpty.displayName = "CustomCommandEmpty";
 
 

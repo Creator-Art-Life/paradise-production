@@ -6,19 +6,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {
-  user?: null | User
-}
 
-const Navigation = async ({ user }: Props) => {
+
+const Navigation = async () => {
   const authUser = await currentUser()
   const ownerAgency = await getAuthUserDetails()
 
-  const linkText = authUser
-    ? "Create Agency"
-    : ownerAgency
-      ? "Agency"
-      : "Login";
+  // const linkText = authUser
+  //   ? "Create Agency"
+  //   : ownerAgency
+  //     ? "Agency"
+  //     : "Login";
 
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-10">

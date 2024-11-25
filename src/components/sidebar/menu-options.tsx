@@ -23,7 +23,6 @@ import {
   CommandList,
 } from '../ui/command'
 import Link from 'next/link'
-import { twMerge } from 'tailwind-merge'
 import { useModal } from '@/providers/modal-provider'
 import CustomModal from '../global/custom-modal'
 import SubAccountDetails from '../forms/subaccount-details'
@@ -35,14 +34,15 @@ type Props = {
   subAccounts: SubAccount[]
   sidebarOpt: AgencySidebarOption[] | SubAccountSidebarOption[]
   sidebarLogo: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   details: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any
   id: string
 }
 
 const MenuOptions = ({
   details,
-  id,
   sidebarLogo,
   sidebarOpt,
   subAccounts,

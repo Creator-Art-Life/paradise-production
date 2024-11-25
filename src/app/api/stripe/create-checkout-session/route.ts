@@ -1,4 +1,3 @@
-import { db } from '@/lib/db'
 import { stripe } from '@/lib/stripe'
 import { NextResponse } from 'next/server'
 
@@ -6,7 +5,6 @@ export async function POST(req: Request) {
   const {
     subAccountConnectAccId,
     prices,
-    subaccountId,
   }: {
     subAccountConnectAccId: string
     prices: { recurring: boolean; productId: string }[]
@@ -85,7 +83,7 @@ export async function POST(req: Request) {
     )
   } catch (error) {
     console.log('🔴 Error', error)
-    //@ts-ignore
+    //@ts-expect-error and some text for resolve
     return NextResponse.json({ error: error.message })
   }
 }

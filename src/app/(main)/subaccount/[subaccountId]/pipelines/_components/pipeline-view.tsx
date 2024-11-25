@@ -84,7 +84,7 @@ const PipelineView = ({
       }
 
       case 'ticket': {
-        let newLanes = [...allLanes]
+        const newLanes = [...allLanes]
         const originLane = newLanes.find(
           (lane) => lane.id === source.droppableId
         )
@@ -187,7 +187,7 @@ const PipelineView = ({
                 />
               </div>
               <h2 className="text-4xl font-extrabold text-white tracking-wide">
-                Oops, there's nothing here!
+                Oops, there is nothing here!
               </h2>
               <p className="text-xl text-white/80">
                 Please add at least one Lane to get started.

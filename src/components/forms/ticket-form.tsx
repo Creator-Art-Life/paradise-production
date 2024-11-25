@@ -80,7 +80,6 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
   const isLoading = form.formState.isLoading
 
 
-
   useEffect(() => {
     if (subaccountId) {
       const fetchData = async () => {
@@ -140,6 +139,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
       if (response) getNewTicket(response)
       router.refresh()
     } catch (error) {
+      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Oppse!',
@@ -148,6 +148,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
     }
     setClose()
   }
+
 
   return (
     <Card className="w-full">
@@ -299,13 +300,13 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
                     className="h-9"
                     value={search}
                     onChangeCapture={async (value) => {
-                      //@ts-ignore
+                      //@ts-expect-error and some text for resolve problem in vercel
                       setSearch(value.target.value)
                       if (saveTimerRef.current)
                         clearTimeout(saveTimerRef.current)
                       saveTimerRef.current = setTimeout(async () => {
                         const response = await searchContacts(
-                          //@ts-ignore
+                          //@ts-expect-error and some text for resolve problem in vercel
                           value.target.value
                         )
                         setContactList(response)
@@ -353,7 +354,3 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
 }
 
 export default TicketForm
-
-function fetchDetailedTags(tagIds: string[]) {
-  throw new Error('Function not implemented.')
-}

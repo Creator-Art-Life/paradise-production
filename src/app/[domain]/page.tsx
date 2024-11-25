@@ -3,7 +3,6 @@ import { getDomainContent } from '@/lib/queries'
 import EditorProvider from '@/providers/editor/editor-provider'
 import { notFound } from 'next/navigation'
 import React from 'react'
-import FunnelEditorNavigation from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor-navigation'
 import FunnelEditor from '../(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor'
 
 const Page = async ({ params }: { params: { domain: string } }) => {

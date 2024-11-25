@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       )
       return NextResponse.json({
         subscriptionId: subscription.id,
-        //@ts-ignore
+        //@ts-expect-error and some text for resolve problem in vercel
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
       })
     } else {
@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       })
       return NextResponse.json({
         subscriptionId: subscription.id,
-        //@ts-ignore
+        //@ts-expect-error and some text for resolve problem in vercel
         clientSecret: subscription.latest_invoice.payment_intent.client_secret,
       })
     }

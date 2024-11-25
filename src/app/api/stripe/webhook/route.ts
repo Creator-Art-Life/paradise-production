@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
       return
     }
     stripeEvent = stripe.webhooks.constructEvent(body, sig, webhookSecret)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.log(`🔴 Error ${error.message}`)
     return new NextResponse(`Webhook Error: ${error.message}`, { status: 400 })

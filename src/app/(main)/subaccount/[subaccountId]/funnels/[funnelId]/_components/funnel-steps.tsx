@@ -5,7 +5,7 @@ import { FunnelsForSubAccount } from "@/lib/types";
 import { useModal } from "@/providers/modal-provider";
 import { FunnelPage } from "@prisma/client";
 import { useState } from "react";
-import { DragDropContext, DragStart, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { upsertFunnelPage } from '@/lib/queries'
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
