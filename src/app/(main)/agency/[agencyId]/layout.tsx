@@ -12,11 +12,11 @@ import React from 'react'
 
 type Props = {
   children: React.ReactNode
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 const layout = async ({ children, params }: Props) => {
-  const { id } = await params
+  const resolvedParams = await params
   const agencyId = await verifyAndAcceptInvitation()
   const user = await currentUser()
 
@@ -44,7 +44,7 @@ const layout = async ({ children, params }: Props) => {
   return (
     <div className="h-screen overflow-hidden">
       <Sidebar
-        id={id}
+        id={resolvedParams.id}
         type="agency"
       />
       <div className="md:pl-[300px]">
