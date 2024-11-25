@@ -30,7 +30,7 @@ type PageProps = {
   params: { agencyId: string }
 }
 
-const AllSubaccountsPage = async ({ params }: PageProps) => {
+const AllSubaccountsPage = async ({ params }: any) => {// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const user = await getAuthUserDetails();
   if (!user) return;
 
