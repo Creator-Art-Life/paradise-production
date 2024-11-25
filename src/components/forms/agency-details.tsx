@@ -177,8 +177,7 @@ const AgencyDetails = ({ data }: Props) => {
     setDeletingAgency(true)
     //WIP: discontinue the subscription
     try {
-      //@typescript-eslint/no-unused-vars
-      const response = await deleteAgency(data.id)
+      await deleteAgency(data.id)
       toast({
         title: 'Deleted Agency',
         description: 'Deleted your agency and all subaccounts',
