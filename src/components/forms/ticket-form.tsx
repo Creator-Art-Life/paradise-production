@@ -133,6 +133,7 @@ const TicketForm = ({ getNewTicket, laneId, subaccountId }: Props) => {
         title: 'Success',
         description: 'Saved  details',
       })
+      //@ts-expect-error some text for resolve
       if (response) getNewTicket(response)
       router.refresh()
     } catch (error) {
