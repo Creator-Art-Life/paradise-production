@@ -85,6 +85,7 @@ const ContactFormComponent = (props: Props) => {
         title: 'Failed',
         description: 'Could not save your information',
       })
+      console.log(error)
     }
   }
 

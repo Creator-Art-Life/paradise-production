@@ -9,7 +9,7 @@ interface FunnelProductsCardProps {
   isLoading?: boolean
   liveProducts: { productId: string; recurring: boolean }[] | []
   handleSaveProducts: () => void
-  handleAddProduct: (product: any) => void
+  handleAddProduct: (product: Stripe.Product) => void
   products: Stripe.Product[]
   className?: string
   showButton?: boolean

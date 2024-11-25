@@ -1,7 +1,5 @@
-import StripeAgencyStatics from '@/components/forms/stripe-agency-statics'
+
 import CircleProgress from '@/components/global/circle-progress'
-import DashboardUse from '@/components/site/dashboard-use'
-import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -23,7 +21,7 @@ import {
   ShoppingCart,
 } from 'lucide-react'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
 const Page = async ({
   params,

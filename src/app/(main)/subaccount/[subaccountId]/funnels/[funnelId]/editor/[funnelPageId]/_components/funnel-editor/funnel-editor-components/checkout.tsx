@@ -78,7 +78,7 @@ const Checkout = (props: Props) => {
             className: 'z-[100000]',
             variant: 'destructive',
             title: 'Oppse!',
-            //@ts-ignore
+            //@ts-expect-error
             description: error.message,
           })
         }
@@ -102,21 +102,21 @@ const Checkout = (props: Props) => {
     })
   }
 
-  const goToNextPage = async () => {
-    if (!state.editor.liveMode) return
-    const funnelPages = await getFunnel(funnelId)
-    if (!funnelPages || !pageDetails) return
-    if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
-      console.log(funnelPages.FunnelPages.length, pageDetails.order + 1)
-      const nextPage = funnelPages.FunnelPages.find(
-        (page) => page.order === pageDetails.order + 1
-      )
-      if (!nextPage) return
-      router.replace(
-        `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
-      )
-    }
-  }
+  // const goToNextPage = async () => {
+  //   if (!state.editor.liveMode) return
+  //   const funnelPages = await getFunnel(funnelId)
+  //   if (!funnelPages || !pageDetails) return
+  //   if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
+  //     console.log(funnelPages.FunnelPages.length, pageDetails.order + 1)
+  //     const nextPage = funnelPages.FunnelPages.find(
+  //       (page) => page.order === pageDetails.order + 1
+  //     )
+  //     if (!nextPage) return
+  //     router.replace(
+  //       `${process.env.NEXT_PUBLIC_SCHEME}${funnelPages.subDomainName}.${process.env.NEXT_PUBLIC_DOMAIN}/${nextPage.pathName}`
+  //     )
+  //   }
+  // }
 
   const handleDeleteElement = () => {
     dispatch({
@@ -165,7 +165,7 @@ const Checkout = (props: Props) => {
           {!options.clientSecret && (
             <div className="flex flex-col items-center justify-center w-full h-40 space-y-4 text-center bg-gray-100 rounded-lg shadow">
               <Loading />
-              if you don't have stripe connected, loading will be endless
+              if you dont have stripe connected, loading will be endless
             </div>
           )}
         </div>

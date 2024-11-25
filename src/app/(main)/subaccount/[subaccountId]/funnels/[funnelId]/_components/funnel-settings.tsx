@@ -48,7 +48,7 @@ const FunnelSettings: React.FC<FunnelSettingsProps> = async ({
           <>
             {!subaccountDetails.connectAccountId && (
               <p>Connect your Stripe account to sell products. You can still configure your funnel, <b style={{ color: "#dc2626" }}>
-                but all functions with stripe don't work
+                but all functions with stripe dont work
               </b>
               </p>
             )}

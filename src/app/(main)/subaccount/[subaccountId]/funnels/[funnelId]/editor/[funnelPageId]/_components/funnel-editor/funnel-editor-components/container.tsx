@@ -11,10 +11,11 @@ import { Trash } from 'lucide-react'
 type Props = { element: EditorElement }
 
 const Container = ({ element }: Props) => {
-  const { id, content, name, styles, type } = element
+  const { id, content, styles, type } = element
   const { dispatch, state } = useEditor()
 
   const handleOnDrop = (e: React.DragEvent, type: string) => {
+    type.length
     e.stopPropagation()
     const componentType = e.dataTransfer.getData('componentType') as EditorBtns
 

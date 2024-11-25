@@ -10,10 +10,10 @@ type Props = {
 }
 
 const page = async ({ params }: Props) => {
-  const addOns = await stripe.products.list({
-    ids: addOnProducts.map((product) => product.id),
-    expand: ['data.default_price'],
-  })
+  // const addOns = await stripe.products.list({
+  //   ids: addOnProducts.map((product) => product.id),
+  //   expand: ['data.default_price'],
+  // })
 
   const agencySubscription = await db.agency.findUnique({
     where: {
@@ -39,17 +39,17 @@ const page = async ({ params }: Props) => {
     customer: agencySubscription?.customerId ?? undefined,
   })
 
-  const allCharges = [
-    ...charges.data.map((charge) => ({
-      description: charge.description,
-      id: charge.id,
-      date: `${new Date(charge.created * 1000).toLocaleTimeString()} ${new Date(
-        charge.created * 1000
-      ).toLocaleDateString()}`,
-      status: 'Paid',
-      amount: `$${charge.amount / 100}`,
-    })),
-  ]
+  // const allCharges = [
+  //   ...charges.data.map((charge) => ({
+  //     description: charge.description,
+  //     id: charge.id,
+  //     date: `${new Date(charge.created * 1000).toLocaleTimeString()} ${new Date(
+  //       charge.created * 1000
+  //     ).toLocaleDateString()}`,
+  //     status: 'Paid',
+  //     amount: `$${charge.amount / 100}`,
+  //   })),
+  // ]
 
   return (
     <>

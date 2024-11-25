@@ -13,7 +13,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { stripe } from '@/lib/stripe'
-import { v4 } from 'uuid'
 
 type Props = {
   params: {

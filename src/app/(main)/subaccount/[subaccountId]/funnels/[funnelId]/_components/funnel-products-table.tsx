@@ -1,6 +1,6 @@
 'use client';
 
-import { Funnel, SubAccount } from "@prisma/client";
+import { Funnel } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Stripe from "stripe";
@@ -48,9 +48,9 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
     setIsLoading(false)
     router.refresh()
   }
-  const handleAddProduct: any = async (product: Stripe.Product) => {
+  const handleAddProduct = async (product: Stripe.Product) => {
     const productIdExists = liveProducts.find(
-      //@ts-ignore
+      //@ts-expect-error
       (prod) => prod.productId === product.default_price.id
     )
     productIdExists
@@ -58,17 +58,17 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
         liveProducts.filter(
           (prod) =>
             prod.productId !==
-            //@ts-ignore
+            //@ts-expect-error
             product.default_price?.id
         )
       )
-      : //@ts-ignore
+      :
       setLiveProducts([
         ...liveProducts,
         {
-          //@ts-ignore
+          //@ts-expect-error
           productId: product.default_price.id as string,
-          //@ts-ignore
+          //@ts-expect-error
           recurring: !!product.default_price.recurring,
         },
       ])
