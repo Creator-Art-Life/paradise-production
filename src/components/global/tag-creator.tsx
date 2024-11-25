@@ -78,7 +78,6 @@ const TagCreator = ({ getSelectedTags, subAccountId, defaultTags }: Props) => {
       return
     }
     if (!selectedColor) {
-      console.log(error)
       toast({
         variant: 'destructive',
         title: 'Please Select a color',
