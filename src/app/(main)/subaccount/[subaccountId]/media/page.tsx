@@ -4,18 +4,18 @@ import { getMedia } from '@/lib/queries'
 import React from 'react'
 
 type Props = {
-  params: { subaccountId: string }
+  params: Promise<{ subaccountId: string }>
 }
 
 const MediaPage = async ({ params }: Props) => {
-  const { subaccountId } = await params
-  const data = await getMedia(subaccountId)
+  const resolvedParams = await params
+  const data = await getMedia(resolvedParams.subaccountId)
 
   return (
     <BlurPage>
       <MediaComponent
         data={data}
-        subaccountId={subaccountId}
+        subaccountId={resolvedParams.subaccountId}
       />
     </BlurPage>
   )

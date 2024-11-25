@@ -9,11 +9,11 @@ import React from 'react'
 
 type Props = {
   children: React.ReactNode
-  params: { subaccountId: string }
+  params: Promise<{ subaccountId: string }>
 }
 
 const SubaccountLayout = async ({ children, params }: Props) => {
-  const { subaccountId } = await params
+  const resolvedParams = await params;
   const agencyId = await verifyAndAcceptInvitation()
   if (!agencyId) return <Unauthorized />
   const user = await currentUser()
@@ -29,7 +29,7 @@ const SubaccountLayout = async ({ children, params }: Props) => {
     const allPermissions = await getAuthUserDetails()
     const hasPermission = allPermissions?.Permissions.find(
       (permissions) =>
-        permissions.access && permissions.subAccountId === subaccountId
+        permissions.access && permissions.subAccountId === resolvedParams.subaccountId
     )
     if (!hasPermission) {
       return <Unauthorized />
@@ -44,7 +44,7 @@ const SubaccountLayout = async ({ children, params }: Props) => {
       notifications = allNotifications
     } else {
       const filteredNoti = allNotifications?.filter(
-        (item) => item.subAccountId === params.subaccountId
+        (item) => item.subAccountId === resolvedParams.subaccountId
       )
       if (filteredNoti) notifications = filteredNoti
     }
@@ -53,14 +53,14 @@ const SubaccountLayout = async ({ children, params }: Props) => {
   return (
     <div className='h-screen overflow-hidden'>
       <Sidebar
-        id={subaccountId}
+        id={resolvedParams.subaccountId}
         type="subaccount"
       />
       <div className="md:pl-[300px]">
         <InfoBar
           notifications={notifications}
           role={user.privateMetadata.role as Role}
-          subAccountId={subaccountId as string}
+          subAccountId={resolvedParams.subaccountId as string}
         />
         <div className="relative">{children}</div>
       </div>
