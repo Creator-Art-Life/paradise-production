@@ -8,14 +8,15 @@ import React from 'react'
 const Page = async ({
   searchParams,
 }: {
-  searchParams: { plan: Plan; state: string; code: string }
+  searchParams: Promise<{ plan: Plan; state: string; code: string }>
 }) => {
+  const resolvedsearchParams = await searchParams;
   const agencyId = await verifyAndAcceptInvitation()
   // console.log(agencyId)
 
   //get the users details
   const user = await getAuthUserDetails()
-  const { plan, state, code } = await searchParams;
+  const { plan, state, code } = resolvedsearchParams;
 
   if (agencyId) {
     if (user?.role === 'SUBACCOUNT_GUEST' || user?.role === 'SUBACCOUNT_USER') {
