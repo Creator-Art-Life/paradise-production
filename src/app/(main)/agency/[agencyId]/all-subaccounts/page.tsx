@@ -28,12 +28,12 @@ import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
 type Props = {
-  params: { agencyId: string }
+  params: Promise<{ agencyId: string }>
 }
 
 const AllSubaccountsPage = async ({ params }: Props) => {
 
-  const { agencyId } = params
+  const { agencyId } = await params
   const user = await getAuthUserDetails()
   if (!user) return
 
