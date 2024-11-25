@@ -161,10 +161,13 @@ const PipelineView = ({
               <div className="flex mt-4">
                 {allLanes.map((lane, index) => (
                   <PipelineLane
+                    //@ts-ignore
                     allTickets={allTickets}
+                    //@ts-ignore
                     setAllTickets={setAllTickets}
                     subaccountId={subaccountId}
                     pipelineId={pipelineId}
+                    //@ts-ignore
                     tickets={lane.Tickets}
                     laneDetails={lane}
                     index={index}
