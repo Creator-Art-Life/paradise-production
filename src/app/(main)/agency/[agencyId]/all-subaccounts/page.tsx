@@ -26,7 +26,7 @@ import React from 'react'
 import DeleteButton from './_components/delete-button'
 import CreateSubaccountButton from './_components/create-subaccount-btn'
 
-//@typescript-eslint/ban-ts-comment
+// @ts-ignore
 type Props = {
   params: { agencyId: string }
 }
