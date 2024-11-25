@@ -97,8 +97,8 @@ const AgencyDetails = ({ data }: Props) => {
 
   const handleSubmit = async (values: z.infer<typeof FormSchema>) => {
     try {
-      // @ts-ignore
-      let newUserData
+      // @typescript-eslint/ban-ts-comment
+      // let newUserData
       let custId
       if (!data?.id) {
         const bodyData = {
@@ -135,9 +135,10 @@ const AgencyDetails = ({ data }: Props) => {
         custId = customerData.customerId
       }
 
-      newUserData = await initUser({ role: 'AGENCY_OWNER' })
-      if (!data?.customerId && !custId) return
+      // const newUserData = await initUser({ role: 'AGENCY_OWNER' })
+      // if (!data?.customerId && !custId) return
 
+      //@typescript-eslint/no-unused-vars
       const response = await upsertAgency({
         id: data?.id ? data.id : v4(),
         customerId: data?.customerId || custId || '',

@@ -29,6 +29,7 @@ export const ModalContext = createContext<ModalContextType>({
   data: {},
   isOpen: false,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //@typescript-eslint/no-unused-vars
   setOpen: (modal: React.ReactNode, fetchData?: () => Promise<any>) => { },
   setClose: () => { },
 })

@@ -31,7 +31,7 @@ export type EditorAction =
         content: []
         name: ''
         // @typescript-eslint/ban-ts-comment
-        styles: {}
+        styles: Record<string, unknown>
         type: null
       }
     }

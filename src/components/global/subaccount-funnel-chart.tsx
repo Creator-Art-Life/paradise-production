@@ -2,8 +2,11 @@
 import { DonutChart } from '@tremor/react'
 import React from 'react'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Props = { data: any }
+
+type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any
+}
 
 const SubaccountFunnelChart = ({ data }: Props) => {
   return (
@@ -55,7 +58,7 @@ const customTooltip = ({
       </div>
       {
         categoryPayload.payload.FunnelPages?.map((page: any) => (
-          //@ts-ignore
+          //@typescript-eslint/ban-ts-comment
           <div
             key={page.id}
             className="dark:text-white/70 text-black flex justify-between items-center"
