@@ -73,7 +73,6 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
         },
       ])
   }
-  // products = fake_products
 
 
   return (

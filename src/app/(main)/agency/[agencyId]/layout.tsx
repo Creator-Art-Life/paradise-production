@@ -34,6 +34,7 @@ const layout = async ({ children, params }: Props) => {
   )
     return <Unauthorized />
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let allNoti: any = []
   const notifications = await getNotificationAndUser(agencyId)
   if (notifications) allNoti = notifications

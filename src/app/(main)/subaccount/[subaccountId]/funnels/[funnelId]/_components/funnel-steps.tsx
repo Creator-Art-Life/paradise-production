@@ -36,11 +36,11 @@ const FunnelSteps = ({
   const [clickedPage, setClickedPage] = useState<FunnelPage | undefined>(pages[0])
   const { setOpen } = useModal()
   const [pagesState, setPagesState] = useState(pages)
-  const onDragStart = (event: DragStart) => {
+  const onDragStart = () => {
     //current chosen page
     // const { draggableId } = event
     // const value = pagesState.find((page) => page.id === draggableId)
-  }
+  } //event: DragStart
 
   const onDragEnd = (dropResult: DropResult) => {
     const { destination, source } = dropResult

@@ -8,7 +8,6 @@ import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
 import { EmbeddedCheckout, EmbeddedCheckoutProvider } from '@stripe/react-stripe-js'
 import clsx from 'clsx'
 import { Trash } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 
 type Props = {

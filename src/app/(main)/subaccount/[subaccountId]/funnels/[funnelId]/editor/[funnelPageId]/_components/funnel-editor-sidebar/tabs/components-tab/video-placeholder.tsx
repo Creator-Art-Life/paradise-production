@@ -1,5 +1,5 @@
 import { EditorBtns } from '@/lib/constants'
-import { Video, Youtube } from 'lucide-react'
+import { Youtube } from 'lucide-react'
 import React from 'react'
 
 

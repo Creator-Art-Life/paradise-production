@@ -43,7 +43,7 @@ const CardProductsTable: React.FC<FunnelProductsCardProps> = ({
                 <Input
                   defaultChecked={
                     !!liveProducts.find(
-                      //@ts-expect-error
+                      //@ts-expect-error Product ID comparison logic might be mismatched
                       (prod) => prod.productId === product.default_price.id
                     )
                   }
@@ -64,14 +64,14 @@ const CardProductsTable: React.FC<FunnelProductsCardProps> = ({
               <TableCell>{product.name}</TableCell>
               <TableCell>
                 {
-                  //@ts-expect-error
+                  //@ts-expect-error Recurring price flag might be undefined or incorrectly typed
                   product.default_price?.recurring ? 'Recurring' : 'One Time'
                 }
               </TableCell>
               <TableCell className="text-right">
                 $
                 {
-                  //@ts-expect-error
+                  //@ts-expect-error Unit amount may not always be defined as expected
                   product.default_price?.unit_amount / 100
                 }
               </TableCell>
