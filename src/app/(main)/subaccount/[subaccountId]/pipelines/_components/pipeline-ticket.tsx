@@ -59,21 +59,21 @@ const PipelineTicket = async ({
   ticket,
 }: Props) => {
   const router = useRouter()
-  const { setOpen, data } = useModal()
+  const { setOpen } = useModal()
 
 
   const editNewTicket = (ticket: TicketWithTags[0]) => {
     setAllTickets((tickets) =>
-      allTickets.map((t) => {
+      tickets.map((t) => {
         if (t.id === ticket.id) {
           return ticket
         }
         return t
-      })
+      }),
     )
   }
 
-  const handleClickEdit = async () => {
+  const handleClickEdit = () => {
     setOpen(
       <CustomModal
         title="Update Ticket Details"
@@ -125,11 +125,11 @@ const PipelineTicket = async ({
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
           const offset = { x: 300, y: 20 }
-          //@ts-ignore
+          //@ts-expect-error
           const x = provided.draggableProps.style?.left - offset.x
-          //@ts-ignore
+          //@ts-expect-error
           const y = provided.draggableProps.style?.top - offset.y
-          //@ts-ignore
+          //@ts-expect-error
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             top: y,

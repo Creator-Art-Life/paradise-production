@@ -2,9 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 import { EditorBtns } from '@/lib/constants'
 
-type Props = {}
 
-const CheckoutPlaceholder = (props: Props) => {
+const CheckoutPlaceholder = () => {
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return
     e.dataTransfer.setData('componentType', type)

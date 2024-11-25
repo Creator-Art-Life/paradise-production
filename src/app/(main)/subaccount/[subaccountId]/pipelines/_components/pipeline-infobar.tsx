@@ -5,9 +5,7 @@ import CustomModal from '@/components/global/custom-modal'
 import { Button } from '@/components/ui/button'
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
-  CommandItem,
 } from '@/components/ui/command'
 import {
   Popover,
@@ -28,7 +26,7 @@ type Props = {
 }
 
 const PipelineInfoBar = ({ pipelineId, pipelines, subAccountId }: Props) => {
-  const { setOpen: setOpenModal, setClose } = useModal()
+  const { setOpen: setOpenModal } = useModal()
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState(pipelineId)
 

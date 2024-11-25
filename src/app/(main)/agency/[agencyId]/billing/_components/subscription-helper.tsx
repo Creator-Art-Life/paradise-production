@@ -29,7 +29,7 @@ const SubscriptionHelper = ({ prices, customerId, planExists }: Props) => { //cu
             planExists={planExists}
             customerId={customerId}
           />
-          Sorry I haven't made this feature yet
+          Sorry I havent made this feature yet
         </CustomModal>,
         async () => ({
           plans: {

@@ -43,7 +43,7 @@ const CardProductsTable: React.FC<FunnelProductsCardProps> = ({
                 <Input
                   defaultChecked={
                     !!liveProducts.find(
-                      //@ts-ignore
+                      //@ts-expect-error
                       (prod) => prod.productId === product.default_price.id
                     )
                   }
@@ -64,14 +64,14 @@ const CardProductsTable: React.FC<FunnelProductsCardProps> = ({
               <TableCell>{product.name}</TableCell>
               <TableCell>
                 {
-                  //@ts-ignore
+                  //@ts-expect-error
                   product.default_price?.recurring ? 'Recurring' : 'One Time'
                 }
               </TableCell>
               <TableCell className="text-right">
                 $
                 {
-                  //@ts-ignore
+                  //@ts-expect-error
                   product.default_price?.unit_amount / 100
                 }
               </TableCell>

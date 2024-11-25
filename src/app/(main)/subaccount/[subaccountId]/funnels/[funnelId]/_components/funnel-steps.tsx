@@ -38,7 +38,7 @@ const FunnelSteps = ({
   const [pagesState, setPagesState] = useState(pages)
   const onDragStart = (event: DragStart) => {
     //current chosen page
-    const { draggableId } = event
+    // const { draggableId } = event
     // const value = pagesState.find((page) => page.id === draggableId)
   }
 

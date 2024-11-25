@@ -14,7 +14,6 @@ import {
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -34,7 +33,7 @@ type Props = {
   }
 }
 
-const SubaccountPageId = async ({ params, searchParams }: Props) => {
+const SubaccountPageId = async ({ params }: Props) => {
   let currency = 'USD'
   let sessions
   let totalClosedSessions

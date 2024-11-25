@@ -1,6 +1,6 @@
 import React from 'react'
 import { stripe } from "@/lib/stripe"
-import { addOnProducts, pricingCards, } from '@/lib/constants'
+import { pricingCards } from '@/lib/constants'
 import { db } from '@/lib/db'
 import { Separator } from '@/components/ui/separator'
 import PricingCard from './_components/pricing-card'
@@ -34,10 +34,10 @@ const page = async ({ params }: Props) => {
     (c) => c.priceId === agencySubscription?.Subscription?.priceId
   )
 
-  const charges = await stripe.charges.list({
-    limit: 50,
-    customer: agencySubscription?.customerId ?? undefined,
-  })
+  // const charges = await stripe.charges.list({
+  //   limit: 50,
+  //   customer: agencySubscription?.customerId ?? undefined,
+  // })
 
   // const allCharges = [
   //   ...charges.data.map((charge) => ({

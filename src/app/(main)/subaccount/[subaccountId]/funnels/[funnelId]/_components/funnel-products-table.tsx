@@ -50,7 +50,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
   }
   const handleAddProduct = async (product: Stripe.Product) => {
     const productIdExists = liveProducts.find(
-      //@ts-expect-error
+      //@ts-expect-error Product ID may be undefined, but we are sure it's correct here
       (prod) => prod.productId === product.default_price.id
     )
     productIdExists
@@ -58,7 +58,7 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
         liveProducts.filter(
           (prod) =>
             prod.productId !==
-            //@ts-expect-error
+            //@ts-expect-error We're intentionally removing product from the list based on the ID
             product.default_price?.id
         )
       )
@@ -66,9 +66,9 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
       setLiveProducts([
         ...liveProducts,
         {
-          //@ts-expect-error
+          //@ts-expect-error We are casting ID to string as we know it's a valid string
           productId: product.default_price.id as string,
-          //@ts-expect-error
+          //@ts-expect-error Recurring property is safely checked, but type needs to be inferred
           recurring: !!product.default_price.recurring,
         },
       ])

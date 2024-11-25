@@ -1,10 +1,8 @@
 'use client'
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet'
@@ -23,7 +21,7 @@ type Props = {
 }
 
 const FunnelEditorSidebar = ({ subaccountId }: Props) => {
-  const { state, dispatch } = useEditor()
+  const { state } = useEditor()
 
   return (
     <Sheet

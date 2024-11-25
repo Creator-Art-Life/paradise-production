@@ -22,9 +22,9 @@ const FunnelStepCard = ({ activePage, funnelPage, index }: Props) => {
       {(provided, snapshot) => {
         if (snapshot.isDragging) {
           const offset = { x: 300 }
-          //@ts-expect-error
+          //@ts-expect-error The 'left' style might be undefined, but we are manipulating it here to apply a custom offset
           const x = provided.draggableProps.style?.left - offset.x
-          //@ts-expect-error
+          //@ts-expect-error We are safely modifying the draggableProps.style, even though TypeScript may not infer the correct type
           provided.draggableProps.style = {
             ...provided.draggableProps.style,
             left: x,

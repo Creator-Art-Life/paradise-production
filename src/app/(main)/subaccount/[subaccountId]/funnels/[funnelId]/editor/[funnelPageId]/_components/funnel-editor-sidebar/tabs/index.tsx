@@ -2,9 +2,8 @@ import { TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Database, Plus, SettingsIcon, SquareStackIcon } from 'lucide-react';
 import React from 'react'
 
-type Props = {}
 
-const TabList = (props: Props) => {
+const TabList = () => {
   return (
     <TabsList className=" flex items-center flex-col justify-evenly w-full bg-transparent h-fit gap-4 ">
       <TabsTrigger

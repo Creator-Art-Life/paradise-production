@@ -4,7 +4,7 @@ import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
 import clsx from 'clsx'
 import { Trash } from 'lucide-react'
 import Link from 'next/link'
-import React, { useRef } from 'react'
+import React from 'react'
 
 type Props = {
   element: EditorElement

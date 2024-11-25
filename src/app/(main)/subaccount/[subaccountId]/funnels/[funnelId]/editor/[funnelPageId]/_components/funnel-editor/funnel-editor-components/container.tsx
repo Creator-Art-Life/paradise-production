@@ -15,8 +15,8 @@ const Container = ({ element }: Props) => {
   const { dispatch, state } = useEditor()
 
   const handleOnDrop = (e: React.DragEvent, type: string) => {
-    type.length
     e.stopPropagation()
+    console.log(type)
     const componentType = e.dataTransfer.getData('componentType') as EditorBtns
 
     switch (componentType) {

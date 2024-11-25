@@ -31,14 +31,13 @@ import {
 } from 'lucide-react';
 import React from 'react'
 
-type Props = {}
 
-const SettingsTab = (props: Props) => {
+const SettingsTab = () => {
   const { state, dispatch } = useEditor()
 
   const handleOnChanges = (e: any) => {
     const styleSettings = e.target.id
-    let value = e.target.value
+    const value = e.target.value
     const styleObject = {
       [styleSettings]: value,
     }
@@ -59,7 +58,7 @@ const SettingsTab = (props: Props) => {
 
   const handleChangeCustomValues = (e: any) => {
     const settingProperty = e.target.id
-    let value = e.target.value
+    const value = e.target.value
     const styleObject = {
       [settingProperty]: value,
     }

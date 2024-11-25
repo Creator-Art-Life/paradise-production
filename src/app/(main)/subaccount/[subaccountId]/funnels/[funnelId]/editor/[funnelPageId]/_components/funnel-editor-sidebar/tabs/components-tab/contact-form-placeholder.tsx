@@ -2,9 +2,7 @@ import { EditorBtns } from '@/lib/constants'
 import { Contact2Icon } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
-
-const ContactFormComponentPlaceholder = (props: Props) => {
+const ContactFormComponentPlaceholder = () => {
   const handleDragStart = (e: React.DragEvent, type: EditorBtns) => {
     if (type === null) return
     e.dataTransfer.setData('componentType', type)

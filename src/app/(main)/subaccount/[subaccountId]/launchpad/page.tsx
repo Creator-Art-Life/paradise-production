@@ -14,7 +14,6 @@ import { CheckCircleIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { v4 } from 'uuid'
 
 type Props = {
   searchParams: {

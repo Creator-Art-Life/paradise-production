@@ -16,8 +16,8 @@ type Props = {
 }
 
 const Checkout = (props: Props) => {
-  const { dispatch, state, subaccountId, funnelId, pageDetails } = useEditor()
-  const router = useRouter()
+  const { dispatch, state, subaccountId, funnelId } = useEditor()
+  // const router = useRouter()
   const [clientSecret, setClientSecret] = useState('')
   const [livePrices, setLivePrices] = useState([])
   const [subAccountConnectAccId, setSubAccountConnectAccId] = useState('')
@@ -78,7 +78,7 @@ const Checkout = (props: Props) => {
             className: 'z-[100000]',
             variant: 'destructive',
             title: 'Oppse!',
-            //@ts-expect-error
+            //@ts-expect-error some text which solve my problem
             description: error.message,
           })
         }
