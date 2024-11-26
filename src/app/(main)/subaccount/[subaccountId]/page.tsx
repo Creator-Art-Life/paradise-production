@@ -123,10 +123,10 @@ const SubaccountPageId = async ({ params }: Props) => {
 
   return (
     <BlurPage>
-      <div className="relative">
+      <div className="relative ">
         {!subaccountDetails.connectAccountId && (
-          <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50 pointer-events-none">
-            <Card>
+          <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50 h-full">
+            <Card className=' max-md:mb-[1000px] max-md:ml-10'>
               <CardHeader>
                 <CardTitle>Connect Your Stripe</CardTitle>
                 <CardDescription>
@@ -143,7 +143,7 @@ const SubaccountPageId = async ({ params }: Props) => {
             </Card>
           </div>
         )}
-        <div className="flex flex-col gap-4 pb-6 overflow-auto">
+        <div className="flex flex-col gap-4 pb-6">
           <div className="flex gap-4 flex-col xl:!flex-row">
             <Card className="flex-1 relative">
               <CardHeader>
@@ -241,7 +241,7 @@ const SubaccountPageId = async ({ params }: Props) => {
             </Card>
           </div>
           <div className="flex gap-4 xl:!flex-row flex-col">
-            <Card className="p-4 flex-1 h-[450px] overflow-scroll relative">
+            <Card className="p-4 flex-1 h-[450px] overflow-auto relative">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   Transition History

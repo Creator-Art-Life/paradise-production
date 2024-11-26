@@ -98,10 +98,10 @@ const Page = async ({
   }
 
   return (
-    <div className="relative h-full">
+    <div className="relative">
       {!agencyDetails.connectAccountId && (
-        <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50">
-          <Card>
+        <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50 h-full">
+          <Card className=' max-md:mb-[1000px] max-md:ml-10'>
             <CardHeader>
               <CardTitle>Connect Your Stripe</CardTitle>
               <CardDescription>

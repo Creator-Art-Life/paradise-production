@@ -5,6 +5,8 @@ import React from 'react'
 import FunnelEditorNavigation from './_components/funnel-editor-navigation'
 import FunnelEditorSidebar from './_components/funnel-editor-sidebar'
 import FunnelEditor from './_components/funnel-editor'
+import MobileWarning from '@/hooks/mobile-warning'
+import { AppWindow } from 'lucide-react'
 
 type Props = {
   params: Promise<{
@@ -28,24 +30,30 @@ const Page = async ({ params }: Props) => {
   }
 
   return (
-    <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
-      <EditorProvider
-        subaccountId={resolvedParams.subaccountId}
-        funnelId={resolvedParams.funnelId}
-        pageDetails={funnelPageDetails}
-      >
-        <FunnelEditorNavigation
-          funnelId={resolvedParams.funnelId}
-          funnelPageDetails={funnelPageDetails}
+    <MobileWarning
+      text='Back'
+      link={`/subaccount/${resolvedParams.subaccountId}/funnels/${resolvedParams.funnelId}`}
+      icon={<AppWindow />}
+    >
+      <div className="fixed top-0 bottom-0 left-0 right-0 z-[20] bg-background overflow-hidden">
+        <EditorProvider
           subaccountId={resolvedParams.subaccountId}
-        />
-        <div className="h-full flex justify-center">
-          <FunnelEditor funnelPageId={resolvedParams.funnelPageId} />
-        </div>
+          funnelId={resolvedParams.funnelId}
+          pageDetails={funnelPageDetails}
+        >
+          <FunnelEditorNavigation
+            funnelId={resolvedParams.funnelId}
+            funnelPageDetails={funnelPageDetails}
+            subaccountId={resolvedParams.subaccountId}
+          />
+          <div className="h-full flex justify-center">
+            <FunnelEditor funnelPageId={resolvedParams.funnelPageId} />
+          </div>
 
-        <FunnelEditorSidebar subaccountId={resolvedParams.subaccountId} />
-      </EditorProvider>
-    </div>
+          <FunnelEditorSidebar subaccountId={resolvedParams.subaccountId} />
+        </EditorProvider>
+      </div>
+    </MobileWarning>
   )
 }
 
