@@ -48,7 +48,7 @@ const MobileWarning: React.FC<Props> = ({ children, text, link, icon }) => {
       return (
         <BlurPage>
           <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50">
-            <Card>
+            <Card className="ml-10">
               <CardHeader>
                 <CardTitle className=''>Warning</CardTitle>
                 <CardDescription>
