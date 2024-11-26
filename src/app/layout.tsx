@@ -23,6 +23,9 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
+      <head>
+        <link rel="icon" href="assets/paradise-logo.svg" />
+      </head>
       <body className={font.className}>
         <ThemeProvider
           attribute="class"

@@ -1,7 +1,7 @@
 import { ModeToggle } from '@/components/global/mode-toggle'
-// import { getAuthUserDetails } from '@/lib/queries'
+import { getAuthUserDetails } from '@/lib/queries'
 import { UserButton } from '@clerk/nextjs'
-// import { currentUser, User } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -9,14 +9,14 @@ import React from 'react'
 
 
 const Navigation = async () => {
-  // const authUser = await currentUser()
-  // const ownerAgency = await getAuthUserDetails()
+  const authUser = await currentUser()
+  const ownerAgency = await getAuthUserDetails()
 
-  // const linkText = authUser
-  //   ? "Create Agency"
-  //   : ownerAgency
-  //     ? "Agency"
-  //     : "Login";
+  const linkText = !authUser
+    ? 'Login'
+    : ownerAgency
+      ? 'Agency'
+      : 'Create Agency';
 
   return (
     <div className="fixed top-0 right-0 left-0 p-4 flex items-center justify-between z-10">
@@ -42,7 +42,7 @@ const Navigation = async () => {
           href={'/agency'}
           className="bg-primary text-white p-2 px-4 rounded-md hover:bg-primary/80"
         >
-          Login
+          {linkText}
         </Link>
         <UserButton />
         <ModeToggle />
