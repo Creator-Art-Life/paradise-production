@@ -109,13 +109,14 @@ const FunnelProductsTable: React.FC<FunnelProductsTableProps> = ({
                 handleSaveProducts={handleSaveProducts}
                 className="mt-4"
               />
-              <FunnelForm
-                subAccountId={subaccountId}
-                defaultData={defaultData}
-                className="mt-4"
-              />
+
             </>
           )}
+          <FunnelForm
+            subAccountId={subaccountId}
+            defaultData={defaultData}
+            className="mt-4"
+          />
         </>
       )
       }
