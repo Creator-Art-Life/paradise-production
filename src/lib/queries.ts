@@ -249,15 +249,15 @@ export const initUser = async (newUser: Partial<User>) => {
   return userData
 }
 //@typescript-eslint/no-unused-vars
+
 export const upsertAgency = async (agency: Agency, price?: Plan) => {
-  if (!agency.companyEmail) return null
+  if (!agency.companyEmail) return null;
   try {
     const agencyDetails = await db.agency.upsert({
       where: {
         id: agency.id,
       },
       update: {
-        // Use only the fields that need to be updated
         address: agency.address,
         agencyLogo: agency.agencyLogo,
         city: agency.city,
@@ -269,12 +269,10 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
         zipCode: agency.zipCode,
         companyEmail: agency.companyEmail,
         goal: agency.goal,
-        // Handle nested updates as necessary, ensuring valid data
       },
       create: {
         id: agency.id,
-        // Only include required fields here
-        customerId: agency.customerId, // Or handle according to your schema
+        customerId: agency.customerId,
         address: agency.address,
         agencyLogo: agency.agencyLogo,
         city: agency.city,
@@ -288,7 +286,6 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
         goal: agency.goal,
         SidebarOption: {
           create: [
-            // Add SidebarOption data here
             {
               name: 'Dashboard',
               icon: 'category',
@@ -322,15 +319,30 @@ export const upsertAgency = async (agency: Agency, price?: Plan) => {
           ],
         },
         users: {
-          connect: { email: agency.companyEmail },
+          connectOrCreate: {
+            where: { email: agency.companyEmail },
+            create: {
+              email: agency.companyEmail,
+              name: agency.name, // Add a value for name
+              avatarUrl: '', // Add a value for avatarUrl or use a default
+              // Add other necessary fields here as required by your schema
+            },
+          },
         },
       },
     });
-    return agencyDetails
+    return agencyDetails;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+
+
+
+
+
+
 
 export const getNotificationAndUser = async (agencyId: string) => {
   try {

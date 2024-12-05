@@ -42,6 +42,7 @@ import { Input } from '../ui/input'
 import { Switch } from '../ui/switch'
 import {
   deleteAgency,
+  initUser,
   saveActivityLogsNotification,
   updateAgencyDetails,
   upsertAgency,
@@ -134,8 +135,8 @@ const AgencyDetails = ({ data }: Props) => {
         custId = customerData.customerId
       }
 
-      // const newUserData = await initUser({ role: 'AGENCY_OWNER' })
-      // if (!data?.customerId && !custId) return
+      const newUserData = await initUser({ role: 'AGENCY_OWNER' })
+      if (!data?.customerId && !custId) return
 
       //@typescript-eslint/no-unused-vars
       const response = await upsertAgency({
